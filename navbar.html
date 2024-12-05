@@ -1,62 +1,72 @@
-<div class="site-mobile-menu site-navbar-target">
-    <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
-            <span class="icofont-close js-menu-toggle"></span>
-        </div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a href="main.html" class="logo m-0 float-start"><img src="img/school.png" alt=""
+            width="50" height="50"><span class="text-primary"></span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="main.html">首頁</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="album.html">相簿</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">關於我們</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="category.html">搜尋標籤</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://www.kh.usc.edu.tw/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                外部連結
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://www.facebook.com/profile.php?id=100006847366880">Facebook</a></li>
+              <li><a class="dropdown-item" href="https://www.instagram.com/itc_kh/">Instagram</a></li>
+              <li><a class="dropdown-item" href="https://www.youtube.com/watch?v=aISeA6vCZ8c">Youtube</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="site-mobile-menu-body"></div>
-</div>
+  </nav>
+  <style>
+    .navbar {
+        background-color: #214252; 
+    }
 
-<nav class="site-nav">
-    <div class="container">
-        <div class="menu-bg-wrap">
-            <div class="site-navigation">
-                <div class="row g-0 align-items-center">
-                    <div class="col-2">
-                        <a href="main.html" class="logo m-0 float-start"><img src="img/school.png" alt=""
-                                width="50" height="50"><span class="text-primary"></span></a>
-                    </div>
-                    <div class="col-8 text-center">
-                        <form action="#" class="search-form d-inline-block d-lg-none">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="bi-search"></span>
-                        </form>
+    .navbar-nav .nav-link {
+        color: white !important;
+    }
 
-                        <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
-                            <li class="active"><a href="main.html">首頁</a></li>
-                            <li><a href="album.html">相簿</a></li>
-                            <li><a href="about.html">關於我們</a></li>
-                            <li><a href="category.html">搜尋標籤</a></li>
-                            <li class="has-children">
-                                <a href="album.html">外部連結</a>
-                                <ul class="dropdown">
-                                    <li><a href="https://www.kh.usc.edu.tw/">南實踐大學高雄校區</a></li>
-                                    <li class="has-children">
-                                        <a href="https://itc.kh.usc.edu.tw/">資通系</a>
-                                        <ul class="dropdown">
-                                            <li><a href="https://www.facebook.com/profile.php?id=100006847366880">Facebook</a></li>
-                                            <li><a href="https://www.instagram.com/itc_kh/">Instagram</a></li>
-                                            <li><a href="https://www.youtube.com/watch?v=aISeA6vCZ8c">Youtube</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-2 text-end">
-                        <a href="#"
-                            class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light">
-                            <span></span>
-                        </a>
-                        <form action="#" class="search-form d-none d-lg-inline-block">
-                            <a href="category.html">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="bi-search"></span>
-                            </a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
+    .navbar-nav .nav-link.active {
+        color: #ffffff !important;
+    }
+
+    .navbar-nav .dropdown-menu {
+        background-color: #214252; 
+    }
+
+    .navbar-nav .dropdown-item {
+        color: white !important; 
+    }
+
+    .navbar-nav .dropdown-item:hover {
+        background-color: #214252; 
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("/img/search.png");
+    }
+
+    .navbar-toggler {
+        background-color: #214252; 
+        border: none; 
+        padding: 8px; 
+        border-radius: 5px; 
+    }
+
+</style>
