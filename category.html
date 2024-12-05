@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="img/icon/wtf.png">
+    
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap5" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="css/tiny-slider.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/glightbox.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="stylesheet" href="css/flatpickr.min.css">
+    
+    <link rel="stylesheet" href="css/backtotop.css">
+    <link rel="stylesheet" href="css/bread.css">
+    <title>我的大學生活 &mdash; 網頁設計比賽</title>
+
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+    <!-- 麵包屑導航 -->
+    <div class="header">
+        <div class="breadcrumbs">
+        <a href="main.html">首頁</a> &gt; <span>搜尋頁面</span>
+        </div>
+        <div id="google_translate_element"></div>
+    </div>
+
+
+    <div class="section search-result-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading">尋找標籤</div>
+                </div>
+            </div>
+            <div class="row posts-entry"> 
+                <div class="col-lg-8">
+
+                    <div id="blogs-comment"></div>
+                    <!-- 導入post -->
+                     
+                </div>
+                <div class="col-lg-4 sidebar">
+                    <!-- 搜尋 -->
+                    <div class="sidebar-box search-form-wrap mb-4">
+                        <form action="#" class="sidebar-search-form">
+                            <span class="bi-search"></span>
+                            <input type="text" class="form-control" id="search" placeholder="輸入標籤進行搜尋">
+                        </form>
+                    </div>
+                    <div id="sidebar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+                
+    <!-- Preloader -->
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+                
+    <!-- 回到最上方按鈕 -->
+    <button id="backToTop">回到最上方</button>
+
+<script>
+
+    const blogsComment = document.getElementById('blogs-comment');
+        const searchInput = document.getElementById('search');
+        let allBlogs = []; // 儲存所有文章
+
+        fetch('./data/blog.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('.json not found');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.blogs && data.blogs.length > 0) {
+                    allBlogs = data.blogs; // 儲存資料
+                    renderBlogs(allBlogs); // 初始顯示文章
+                } else {
+                    blogsComment.innerHTML = '<p>No comments available.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('錯誤:', error);
+                blogsComment.innerHTML = '<p>Error loading comments.</p>';
+            });
+
+        // 渲染文章
+        function renderBlogs(blogs) {
+            // 清空內容
+            blogsComment.innerHTML = '';
+            if (blogs.length === 0) {
+                blogsComment.innerHTML = '<p>No matching articles found.</p>';
+                return;
+            }
+
+            blogs.forEach(blog => {
+                const blogDiv = document.createElement('div');
+                blogDiv.className = 'blog';
+                blogDiv.innerHTML = `
+            <div class="blog-entry d-flex blog-entry-search-item">
+				<a href="getblogdata.html?index=${blog.id}" class="img-link me-4">
+				<img src="${blog.blogImage.image1}" alt="Image" class="img-fluid">
+				</a>
+				<div>
+					<span class="date">${blog.author.date} &bullet;</span>
+					<h2><a href="getblogdata.html?index=${blog.id}">${blog.title}</a></h2>
+					<p>${blog.blogWord.short}</p>
+					<p><a href="getblogdata.html?index=${blog.id}" class="btn btn-sm btn-outline-primary">Read More</a></p>
+                    <p>標籤:${blog.tags}</p>
+				</div>
+			</div>
+        `;
+                blogsComment.appendChild(blogDiv);
+            });
+        }
+
+        // 搜尋功能
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredBlogs = allBlogs.filter(blog =>
+                blog.tags?.some(tag => tag.toLowerCase().includes(query))
+            );
+            renderBlogs(filteredBlogs); // 重新渲染
+        });
+
+    // 頁面載入查詢
+    window.addEventListener('load', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tag = urlParams.get('tag'); // 獲取tag
+        
+        if (tag) {
+            document.getElementById('search').value = tag;
+            const query = searchInput.value.toLowerCase(); 
+            // 獲取搜尋框輸入
+            const filteredBlogs = allBlogs.filter(blog =>
+                blog.tags?.some(tag => tag.toLowerCase().includes(query))
+            );
+            renderBlogs(filteredBlogs);
+        }
+    });
+</script>
+
+<!-- 回到最上方按鈕 -->
+<button id="backToTop">回到最上方</button>
+<script src="./js/getdata.js"></script>
+<script src="js/backtotop.js"></script>
+<script src="js/bread.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+<script src="js/flatpickr.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/glightbox.min.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/importmodel.js"></script>
+<script src="js/get-randompost.js"></script>
+<script src="js/getdata.js"></script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="img/icon/wtf.png">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap5" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="css/tiny-slider.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/glightbox.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <link rel="stylesheet" href="css/flatpickr.min.css">
+  
+  <link rel="stylesheet" href="css/backtotop.css">
+  <link rel="stylesheet" href="css/bread.css">
+
+  <title>我的大學生活 &mdash; 網頁設計比賽</title>
+</head>
+
+<body>
+
+  <div id="navbar"></div>
+  <!-- 麵包屑導航 -->
+  <div class="header">
+    <div class="breadcrumbs">
+      <a href="main.html">首頁</a> &gt; <span>文章</span>
+    </div>
+    <div id="google_translate_element"></div>
+  </div>
+
+  
+  <!-- 部落格內容導入 -->
+
+
+
+
+  <div id='blogs-conver'></div>
+
+
+
+
+  <section class="section">
+    <div class="container">
+      <div class="row blog-entries element-animate">
+        <div class="col-md-12 col-lg-8 main-content">
+
+
+          <div id="blogs-container"></div>
+
+
+          <div id="blog-list"></div>
+
+
+          <div id="blogs-comment"></div>
+
+
+        </div>
+        <div class="col-md-12 col-lg-4 sidebar">
+
+
+          <div id="sidebar"></div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- 導入footer -->
+<div id="footer"></div>
+
+
+
+<!-- Preloader -->
+<div id="overlayer"></div>
+<div class="loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- 回到最上方按鈕 -->
+<button id="backToTop">回到最上方</button>
+
+
+</body>
+<script src="js/backtotop.js"></script>
+<script src="js/bread.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/tiny-slider.js"></script>
+<script src="js/flatpickr.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/glightbox.min.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/importmodel.js"></script>
+<script src="js/get-randompost.js"></script>
+<script src="js/getdata.js"></script>
+
+</html>
+<script>
+  // 從 URL 中提取 index
+  const urlParams = new URLSearchParams(window.location.search);
+  const index = urlParams.get('index');
+  const a = index;
+  if (index !== null) {
+    fetch('./data/blog.json')
+      .then(response => response.json())
+      .then(data => {
+        const blogDetail = document.getElementById('blog-detail');
+        if (data.blogs && data.blogs[index]) {
+          const blog = data.blogs[index];
+          blogDetail.innerHTML = `
+                    <h1>${blog.title}</h1>
+                    <p>This is the detailed content of blog ${index}.</p>
+                `;
+        } else {
+          blogDetail.innerHTML = '<p>Blog not found.</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Error loading blog details:', error);
+        document.getElementById('blog-detail').innerHTML = '<p>Error loading blog.</p>';
+      });
+  } else {
+    console.error('Index not found in URL');
+    document.getElementById('blog-detail').innerHTML = '<p>No blog selected.</p>';
+  }
+</script>
+</body>
+</html>

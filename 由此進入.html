@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>three.js first practice</title>
+  <style>
+    body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('./img/DSC_3060.JPG');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 40vw; 
+  height: 50vh; 
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.card button {
+
+  position: absolute;
+  bottom: 20px;
+  left: 50%;    
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#animated-text {
+  position: relative;
+  font-size: 40px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid rgba(0, 0, 0, 0.3);
+  /* 半透明邊界 */
+  width: 14ch;
+  animation: shrink 3s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+#model-container {
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+
+/* 打字效果 */
+@keyframes shrink {
+  0%, 100% {
+    width: 0;
+  }
+  50% {
+    width: 14ch;
+  }
+}
+
+/* 響應式設置 */
+@media (max-width: 768px) {
+  .card {
+    width: 80vw; 
+    height: 60vh;
+  }
+
+  #animated-text {
+    font-size: 30px;
+  }
+
+  .card button {
+    font-size: 14px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 90vw; 
+    height: 70vh; 
+  }
+
+  #animated-text {
+    font-size: 24px; 
+  }
+
+  .card button {
+    font-size: 12px;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div id="animated-text"></div>
+      <div id="model-container"></div>
+      <button onclick="window.location.href='index.html'">進入網頁</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/loaders/GLTFLoader.js"></script>
+  <script>
+    // 創建場景
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    const container = document.getElementById('model-container');
+    container.appendChild(renderer.domElement);
+  
+    scene.background = new THREE.Color(0xffffff);
+
+     // 調整畫布大小函數
+    function onResize() {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+    // 更新相機比例
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+    // 更新渲染器尺寸
+      renderer.setSize(width, height);
+    }
+
+    // 設置大小
+    onResize();
+
+    window.addEventListener('resize', onResize);
+
+    // 加載 GLTF 模型
+    const loader = new THREE.GLTFLoader();
+    let model;
+    loader.load('./3D/scene.gltf', function (gltf) {
+      model = gltf.scene;
+      model.scale.set(3, 3, 3);
+      scene.add(model);
+      animate();
+    }, undefined, function (error) {
+      console.error(error);
+    });
+
+    // 燈光
+    const light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+
+    camera.position.set(0, 2, 5);
+
+    let mouse = { x: 0, y: 0 };
+
+      window.addEventListener('mousemove', (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }); 
+      // 前傾後傾
+        let time = 0;
+
+        function updateModelRotation() {
+          if (model) {
+            const targetX = mouse.x * 5;
+            const targetY = mouse.y * 5;
+
+            //面向
+            const direction = new THREE.Vector3(targetX, targetY, camera.position.z);
+            model.lookAt(direction);
+          }   
+        }
+
+        // 搖擺
+        function updateModelTilt() {
+          if (model) {
+            time += 0.02;
+            model.rotation.x = Math.sin(time) * 0.05;
+          }
+        }
+
+        function animate() {
+          requestAnimationFrame(animate);
+          updateModelRotation();
+          updateModelTilt();
+          renderer.render(scene, camera);
+        }
+    animate();
+  </script>
+  <script>
+    const textArray = ["實踐大學資通系", "可愛巧虎隊 :)"];
+    let currentIndex = 0;
+
+    const animatedText = document.getElementById("animated-text");
+
+    function switchText() {
+      animatedText.textContent = textArray[currentIndex]; // 更新文字內容
+      currentIndex = (currentIndex + 1) % textArray.length; // index
+    }
+
+    // 每 3 秒切換文字
+    setInterval(switchText, 3000);
+
+    switchText();
+  </script>
+</body>
+
+</html>

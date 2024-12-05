@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>相簿 - Blogy</title>
+  <link rel="shortcut icon" href="img/wtf.png">
+  <!-- 基本樣式和字型 -->
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="css/tiny-slider.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/glightbox.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <link rel="stylesheet" href="css/flatpickr.min.css">
+  
+  <link rel="stylesheet" href="css/backtotop.css">
+  <link rel="stylesheet" href="css/bread.css">
+  <title>我的大學生活 &mdash; 網頁設計比賽</title>
+</head>
+<body>
+  <div id="navbar"></div>
+  <!-- 麵包屑導航 -->
+  <div class="header">
+    <div class="breadcrumbs">
+      <a href="main.html">首頁</a> &gt; <span>相簿</span>
+    </div>
+    <div id="google_translate_element"></div>
+  </div>
+  <!-- 相簿區域 -->
+  <div class="site-cover site-cover-sm same-height single-page"
+    style="background-image: url('./img/DSC_2255.JPG');">
+    <div class="container">
+      <div class="row same-height justify-content-center">
+        <div class="col-md-5">
+          <div class="post-entry text-center">
+            <h1 class="mb-4">相簿</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="section bg-light">
+      <div class="row g-3" id="photo-gallery"></div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3 class="mb-4">地點</h3>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.243656362967!2d120.46544597508812!3d22.904382079256745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e6b9400000001%3A0x24d686f6d1395fa9!2z5a-m6LiQ5aSn5a24IOmrmOmbhOagoeWNgA!5e0!3m2!1szh-TW!2stw!4v1732677520397!5m2!1szh-TW!2stw"
+              width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="widget">
+            <h3>社交媒體</h3>
+            <ul class="list-unstyled social">
+              <li><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
+              <li><a href="https://x.com/"><span class="icon-twitter"></span></a></li>
+              <li><a href="https://www.facebook.com/?locale=zh_TW"><span class="icon-facebook"></span></a></li>
+              <li><a href="https://tw.linkedin.com/"><span class="icon-linkedin"></span></a></li>
+              <li><a href="https://www.pinterest.com/"><span class="icon-pinterest"></span></a></li>
+              <li><a href="https://dribbble.com/"><span class="icon-dribbble"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 ps-lg-5">
+          <div class="widget">
+            <h3 class="mb-4">文章</h3>
+            <ul class="list-unstyled float-start links">
+              <li><a href="getblogdata.html?index=0">雨後的校園</a></li>
+              <li><a href="getblogdata.html?index=0">校園的日常與活力</a></li>
+              <li><a href="getblogdata.html?index=0">宿舍風景</a></li>
+              <li><a href="getblogdata.html?index=0">校狗的溫暖陪伴</a></li>
+              <li><a href="getblogdata.html?index=0">夜晚學校的氣氛</a></li>
+              <li><a href="getblogdata.html?index=0">微積分的世界</a></li>
+              <li><a href="getblogdata.html?index=0">和善的老師</a></li>
+            </ul>
+            <ul class="list-unstyled float-start links">
+              <li><a href="getblogdata.html?index=0">學校風景</a></li>
+              <li><a href="getblogdata.html?index=0">程式理解</a></li>
+              <li><a href="getblogdata.html?index=0">旗山美食</a></li>
+              <li><a href="getblogdata.html?index=0">出遊的樂趣</a></li>
+              <li><a href="getblogdata.html?index=0">烤肉的美味與樂趣</a></li>
+              <li><a href="getblogdata.html?index=0">帥氣的學長</a></li>
+              <li><a href="getblogdata.html?index=0 ">左營萬年季</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3 class="mb-4">尋找更多</h3>
+            <div class="post-entry-footer">
+              <ul>
+  
+                <div id="three-blogs-container"></div>
+                <!-- 隨機三個文章 -->
+  
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <!-- 
+                **==========
+                NOTE: 
+                Please don't remove this copyright link unless you buy the license here https://untree.co/license/  
+                **==========
+              -->
+  
+          <p>Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed
+            with love by <a href="https://untree.co">Untree.co</a> Distributed by <a
+              href="https://themewagon.com">ThemeWagon</a>
+            <!-- License information: https://untree.co/license/ -->
+          </p>
+        </div>
+      </div>
+    </div> 
+  </footer> 
+
+  
+  <button id="backToTop">回到最上方</button>
+
+  <!-- Preloader -->
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <script>
+    const photoFolder = 'img/';
+    const photoList = [
+      "DSC_2854.JPG",
+"DSC_2855.JPG",
+"DSC_2895.JPG",
+"DSC_2902.JPG",
+"DSC_2917.JPG",
+"DSC_2991.JPG",
+"DSC_2992.JPG",
+"DSC_3016.JPG",
+"DSC_3049.JPG",
+"DSC_3050.JPG",
+"DSC_3060.JPG",
+"DSC_3063.JPG",
+"DSC_3064.JPG",
+"DSC_3066.JPG",
+"_MG_7987.JPG",
+"_MG_7989.JPG",
+"_MG_7991.JPG",
+"_MG_8006.JPG",
+"_MG_8099.JPG",
+"_MG_8113.JPG",
+"_MG_8115.JPG",
+"_MG_8124.JPG",
+"_MG_8125.JPG",
+"DSC_1841.JPG",
+"DSC_1851.JPG",
+"DSC_1858.JPG",
+"DSC_1869.JPG",
+"DSC_1916.JPG",
+"DSC_2033.JPG",
+"DSC_2092.JPG",
+"DSC_2114.JPG",
+"DSC_2127.JPG",
+"DSC_2161.JPG",
+"DSC_2215.JPG",
+"DSC_2225.JPG",
+"DSC_2230.JPG",
+"DSC_2231.JPG",
+"DSC_2255.JPG",
+"DSC_2357.JPG",
+"DSC_2436.JPG",
+"DSC_2522.JPG",
+"DSC_2539.JPG",
+"DSC_2623.JPG",
+"DSC_2624.JPG",
+"DSC_2652.JPG",
+"DSC_2663.JPG",
+"DSC_2700.JPG",
+"DSC_2755.JPG",
+"DSC_2765.JPG",
+"DSC_2767.JPG",
+"DSC_2851.JPG"
+      
+    ];
+
+    const gallery = document.getElementById('photo-gallery');
+
+    photoList.forEach(photo => {
+      const colDiv = document.createElement('div');
+      colDiv.className = 'col-md-4';
+
+      colDiv.innerHTML = `
+        <div class="photo-entry">
+          <a href="${photoFolder}${photo}" class="img-link glightbox">
+            <img src="${photoFolder}${photo}" alt="Photo" class="img-fluid">
+          </a>
+        </div>
+      `;
+
+      gallery.appendChild(colDiv);
+    });
+
+    // 初始化 Lightbox
+    const lightbox = GLightbox({
+      selector: '.glightbox',
+    });
+  </script>
+  <script src="js/backtotop.js"></script>
+	<script src="js/bread.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/tiny-slider.js"></script>
+    <script src="js/flatpickr.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/glightbox.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/custom.js"></script>
+	<script src="js/importmodel.js"></script>
+	<script src="js/get-randompost.js"></script>
+	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
+</html>
