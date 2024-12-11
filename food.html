@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐點選擇器</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .meal-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .meal-section {
+            text-align: center;
+            width: 250px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .meal-section:hover {
+            transform: scale(1.05);
+        }
+
+        .meal-section img {
+            width: 150px;
+            height: 150px;
+            transition: transform 0.1s ease-in-out, opacity 0.3s;
+            border: 3px solid #fcb69f;
+            border-radius: 50%;
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #fcb69f;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #fa8e62;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 2px solid #fcb69f;
+            border-radius: 15px;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease-in-out;
+            z-index: 10;
+        }
+
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .meal-section {
+                width: 200px;
+                padding: 15px;
+            }
+
+            .meal-section img {
+                width: 120px;
+                height: 120px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .meal-section {
+                width: 90%;
+            }
+
+            .meal-section img {
+                width: 100px;
+                height: 100px;
+            }
+
+            button {
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="meal-container">
+        <div class="meal-section">
+            <h2>早餐</h2>
+            <img src="./img/DSC_1841.JPG?text=午餐" alt="早餐" id="breakfastImage">
+            <button id="breakfastButton">抽取早餐</button>
+        </div>
+
+        <div class="meal-section">
+            <h2>午餐</h2>
+            <img src="./img/DSC_1841.JPG?text=午餐" alt="午餐" id="lunchImage">
+            <button id="lunchButton">抽取午餐</button>
+        </div>
+
+        <div class="meal-section">
+            <h2>晚餐</h2>
+            <img src="./img/DSC_1841.JPG?text=晚餐" alt="晚餐" id="dinnerImage">
+            <button id="dinnerButton">抽取晚餐</button>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <h2>恭喜！</h2>
+        <p id="popupMessage">你抽到了 XXX！</p>
+    </div>
+
+    <script>
+        const meals = {
+            breakfast: [
+                { name: '鬆餅', img: './food/鬆餅.jpg?text=鬆餅' },
+                { name: '貝果', img: './food/貝果.jpg?text=貝果' },
+                { name: '吐司', img: './food/吐司.jpg?text=吐司' },
+                { name: '蛋堡', img: './food/蛋堡.jpg?text=蛋堡' },
+                { name: '燒餅', img: './food/燒餅.jpg?text=燒餅' },
+                { name: '蛋餅', img: './food/蛋餅.jpg?text=蛋餅' },
+                { name: '水餃', img: './food/水餃.jpg?text=水餃' },
+                { name: '鍋燒麵', img: './food/鍋燒麵.jpg?text=鍋燒麵' }
+            ],
+            lunch: [
+                { name: '火鍋', img: './food/火鍋.jpg?text=火鍋' },
+                { name: '牛肉麵', img: './food/牛肉麵.jpg?text=牛肉麵' },
+                { name: '焗烤', img: './food/焗烤.jpg?text=焗烤' },
+                { name: '義大利麵', img: './food/義大利麵.jpg?text=義大利麵' },
+                { name: '蛋包飯', img: './food/蛋包飯.jpg?text=蛋包飯' },
+                { name: '丼飯', img: './food/丼飯.jpg?text=丼飯' },
+                { name: '肉燥飯', img: './food/肉燥飯.jpg?text=肉燥飯' },
+                { name: '麻醬麵', img: './food/麻醬麵.jpg?text=麻醬麵' },
+                { name: '餛飩麵', img: './food/餛飩麵.jpg?text=餛飩麵' },
+                { name: '水餃', img: './food/水餃.jpg?text=水餃' },
+                { name: '拉麵', img: './food/拉麵.jpg?text=拉麵' },
+                { name: '鐵板麵', img: './food/鐵板麵.jpg?text=鐵板麵' },
+                { name: '泡飯', img: './food/泡飯.jpg?text=泡飯' },
+                { name: '炸物', img: './food/炸物.jpg?text=炸物' },
+                { name: '滷味', img: './food/滷味.jpg?text=滷味' },
+                { name: '羹湯', img: './food/羹湯.jpg?text=羹湯' },
+                { name: '燴飯', img: './food/燴飯.jpg?text=燴飯' },
+                { name: '燴麵', img: './food/燴麵.jpg?text=燴麵' },
+                { name: '炒麵', img: './food/炒麵.jpg?text=炒麵' },
+                { name: '炒飯', img: './food/炒飯.jpg?text=炒飯' },
+                { name: '湯粥', img: './food/湯粥.jpg?text=湯粥' },
+                { name: '鹹豬肉飯', img: './food/鹹豬肉飯.jpg?text=鹹豬肉飯' },
+                { name: '天鵝肉飯', img: './food/天鵝肉飯.jpg?text=天鵝肉飯' },
+                { name: '梅花肉飯', img: './food/梅花肉飯.jpg?text=梅花肉飯' },
+                { name: '鰻魚飯', img: './food/鰻魚飯.jpg?text=鰻魚飯' },
+                { name: '炸雞排飯', img: './food/炸雞排飯.jpg?text=炸雞排飯' },
+                { name: '炸豬柳飯', img: './food/炸豬柳飯.jpg?text=炸豬柳飯' },
+                { name: '棒棒腿飯', img: './food/棒棒腿飯.jpg?text=棒棒腿飯' },
+                { name: '油雞胸飯', img: './food/油雞胸飯.jpg?text=油雞胸飯' },
+                { name: '蒜泥白肉飯', img: './food/蒜泥白肉.jpg?text=蒜泥白肉' },
+                { name: '蔥爆豬肉飯', img: './food/蔥爆豬肉飯.jpg?text=蔥爆豬肉飯' },
+                { name: '炭烤大雞腿', img: './food/炭烤大雞腿.jpg?text=炭烤大雞腿' },
+                { name: '鯖魚飯', img: './food/鯖魚飯.jpg?text=鯖魚飯' },
+                { name: '豆乳雞飯', img: './food/豆乳雞飯.jpg?text=豆乳雞飯' },
+                { name: '外食', img: './food/外食.jpg?text=外食' }
+            ],
+            dinner: [
+                { name: '火鍋', img: './food/火鍋.jpg?text=火鍋' },
+                { name: '牛肉麵', img: './food/牛肉麵.jpg?text=牛肉麵' },
+                { name: '焗烤', img: './food/焗烤.jpg?text=焗烤' },
+                { name: '義大利麵', img: './food/義大利麵.jpg?text=義大利麵' },
+                { name: '蛋包飯', img: './food/蛋包飯.jpg?text=蛋包飯' },
+                { name: '丼飯', img: './food/丼飯.jpg?text=丼飯' },
+                { name: '肉燥飯', img: './food/肉燥飯.jpg?text=肉燥飯' },
+                { name: '麻醬麵', img: './food/麻醬麵.jpg?text=麻醬麵' },
+                { name: '餛飩麵', img: './food/餛飩麵.jpg?text=餛飩麵' },
+                { name: '水餃', img: './food/水餃.jpg?text=水餃' },
+                { name: '拉麵', img: './food/拉麵.jpg?text=拉麵' },
+                { name: '鐵板麵', img: './food/鐵板麵.jpg?text=鐵板麵' },
+                { name: '泡飯', img: './food/泡飯.jpg?text=泡飯' },
+                { name: '炸物', img: './food/炸物.jpg?text=炸物' },
+                { name: '滷味', img: './food/滷味.jpg?text=滷味' },
+                { name: '羹湯', img: './food/羹湯.jpg?text=羹湯' },
+                { name: '燴飯', img: './food/燴飯.jpg?text=燴飯' },
+                { name: '燴麵', img: './food/燴麵.jpg?text=燴麵' },
+                { name: '炒麵', img: './food/炒麵.jpg?text=炒麵' },
+                { name: '炒飯', img: './food/炒飯.jpg?text=炒飯' },
+                { name: '湯粥', img: './food/湯粥.jpg?text=湯粥' },
+                { name: '鹹豬肉飯', img: './food/鹹豬肉飯.jpg?text=鹹豬肉飯' },
+                { name: '天鵝肉飯', img: './food/天鵝肉飯.jpg?text=天鵝肉飯' },
+                { name: '梅花肉飯', img: './food/梅花肉飯.jpg?text=梅花肉飯' },
+                { name: '鰻魚飯', img: './food/鰻魚飯.jpg?text=鰻魚飯' },
+                { name: '炸雞排飯', img: './food/炸雞排飯.jpg?text=炸雞排飯' },
+                { name: '炸豬柳飯', img: './food/炸豬柳飯.jpg?text=炸豬柳飯' },
+                { name: '棒棒腿飯', img: './food/棒棒腿飯.jpg?text=棒棒腿飯' },
+                { name: '油雞胸飯', img: './food/油雞胸飯.jpg?text=油雞胸飯' },
+                { name: '蒜泥白肉飯', img: './food/蒜泥白肉.jpg?text=蒜泥白肉' },
+                { name: '蔥爆豬肉飯', img: './food/蔥爆豬肉飯.jpg?text=蔥爆豬肉飯' },
+                { name: '炭烤大雞腿', img: './food/炭烤大雞腿.jpg?text=炭烤大雞腿' },
+                { name: '鯖魚飯', img: './food/鯖魚飯.jpg?text=鯖魚飯' },
+                { name: '豆乳雞飯', img: './food/豆乳雞飯.jpg?text=豆乳雞飯' },
+                { name: '外食', img: './food/外食.jpg?text=外食' }
+            ]
+        };
+
+        const popup = document.getElementById('popup');
+        const popupMessage = document.getElementById('popupMessage');
+
+        function setupMealSelector(buttonId, imageId, mealType) {
+            const button = document.getElementById(buttonId);
+            const image = document.getElementById(imageId);
+
+            button.addEventListener('click', () => {
+                image.classList.add('shake');
+
+                setTimeout(() => {
+                    image.classList.remove('shake');
+                    const randomMeal = meals[mealType][Math.floor(Math.random() * meals[mealType].length)];
+                    popupMessage.textContent = `你抽到了 ${randomMeal.name}！`;
+                    image.src = randomMeal.img;
+                    popup.classList.add('active');
+
+                    setTimeout(() => {
+                        popup.classList.remove('active');
+                    }, 2000);
+                }, 500);
+            });
+        }
+
+        setupMealSelector('breakfastButton', 'breakfastImage', 'breakfast');
+        setupMealSelector('lunchButton', 'lunchImage', 'lunch');
+        setupMealSelector('dinnerButton', 'dinnerImage', 'dinner');
+    </script>
+</body>
+
+</html>
