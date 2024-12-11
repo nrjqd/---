@@ -7,22 +7,23 @@
     <title>餐點選擇器</title>
     <style>
         body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #ffecd2, #fcb69f);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            color: #333;
         }
-
+        .container
+        {
+            margin: 10%;
+            height: 100vh; 
+        }    
         .meal-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            align-items: center;
+            overflow: hidden;
+            color: #333;
         }
 
         .meal-section {
@@ -114,6 +115,21 @@
             visibility: visible;
         }
 
+        .inweb{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+        }
+        .inweb a{
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
         @media (max-width: 768px) {
             .meal-section {
                 width: 200px;
@@ -150,29 +166,31 @@
 </head>
 
 <body>
-    <div class="meal-container">
-        <div class="meal-section">
-            <h2>早餐</h2>
-            <img src="./img/DSC_1841.JPG?text=午餐" alt="早餐" id="breakfastImage">
-            <button id="breakfastButton">抽取早餐</button>
+    <div class="container">
+        <div class="meal-container">
+            <div class="meal-section">
+                <h2>早餐</h2>
+                <img src="./img/DSC_1841.JPG?text=午餐" alt="早餐" id="breakfastImage">
+                <button id="breakfastButton">抽取早餐</button>
+            </div>
+        
+            <div class="meal-section">
+                <h2>午餐</h2>
+                <img src="./img/DSC_1841.JPG?text=午餐" alt="午餐" id="lunchImage">
+                <button id="lunchButton">抽取午餐</button>
+            </div>
+        
+            <div class="meal-section">
+                <h2>晚餐</h2>
+                <img src="./img/DSC_1841.JPG?text=晚餐" alt="晚餐" id="dinnerImage">
+                <button id="dinnerButton">抽取晚餐</button>
+            </div>
         </div>
-
-        <div class="meal-section">
-            <h2>午餐</h2>
-            <img src="./img/DSC_1841.JPG?text=午餐" alt="午餐" id="lunchImage">
-            <button id="lunchButton">抽取午餐</button>
-        </div>
-
-        <div class="meal-section">
-            <h2>晚餐</h2>
-            <img src="./img/DSC_1841.JPG?text=晚餐" alt="晚餐" id="dinnerImage">
-            <button id="dinnerButton">抽取晚餐</button>
-        </div>
-    </div>
-
-    <div class="popup" id="popup">
-        <h2>恭喜！</h2>
-        <p id="popupMessage">你抽到了 XXX！</p>
+        <div class="inweb"><button ><a href="./main.html">進入網頁</a></button></div>
+        <div class="popup" id="popup">
+            <h2>恭喜！</h2>
+            <p id="popupMessage">你抽到了 XXX！</p>
+        </div>        
     </div>
 
     <script>
@@ -217,7 +235,6 @@
                 { name: '炸豬柳飯', img: './food/炸豬柳飯.jpg?text=炸豬柳飯' },
                 { name: '棒棒腿飯', img: './food/棒棒腿飯.jpg?text=棒棒腿飯' },
                 { name: '油雞胸飯', img: './food/油雞胸飯.jpg?text=油雞胸飯' },
-                { name: '蒜泥白肉飯', img: './food/蒜泥白肉.jpg?text=蒜泥白肉' },
                 { name: '蔥爆豬肉飯', img: './food/蔥爆豬肉飯.jpg?text=蔥爆豬肉飯' },
                 { name: '炭烤大雞腿', img: './food/炭烤大雞腿.jpg?text=炭烤大雞腿' },
                 { name: '鯖魚飯', img: './food/鯖魚飯.jpg?text=鯖魚飯' },
@@ -254,7 +271,6 @@
                 { name: '炸豬柳飯', img: './food/炸豬柳飯.jpg?text=炸豬柳飯' },
                 { name: '棒棒腿飯', img: './food/棒棒腿飯.jpg?text=棒棒腿飯' },
                 { name: '油雞胸飯', img: './food/油雞胸飯.jpg?text=油雞胸飯' },
-                { name: '蒜泥白肉飯', img: './food/蒜泥白肉.jpg?text=蒜泥白肉' },
                 { name: '蔥爆豬肉飯', img: './food/蔥爆豬肉飯.jpg?text=蔥爆豬肉飯' },
                 { name: '炭烤大雞腿', img: './food/炭烤大雞腿.jpg?text=炭烤大雞腿' },
                 { name: '鯖魚飯', img: './food/鯖魚飯.jpg?text=鯖魚飯' },
@@ -291,6 +307,7 @@
         setupMealSelector('lunchButton', 'lunchImage', 'lunch');
         setupMealSelector('dinnerButton', 'dinnerImage', 'dinner');
     </script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
